@@ -1,0 +1,520 @@
+
+openapi: 3.0.0
+info:
+  title: API dokumentácia
+  version: 0.1.0
+tags:
+- name: "Api"
+- name: "App"
+
+paths:
+  /api/display_user_posts:
+    get:
+      tags:
+        - "Api"
+      summary: Return all user's posts.
+      description: This endpoint returns all user's posts.
+      parameters:
+        - in: query
+          required: True
+          name: user_id
+          schema:
+            type: integer
+          description: ID of user
+      responses:
+        '200':
+          description: Returns all .
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  posts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 2
+                        user_id:
+                          type: integer
+                          example: 1
+                        title:
+                          type: string
+                          example: qui est esse
+                        description:
+                          type: string
+                          example: quia et suscipit suscipit recusandae consequuntur expedita et cum 
+                  
+        '400':
+          description: Wrong format of user ID.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Bad format of post ID.
+        '404':
+          description: Post does not exist.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Post does not exist.
+        '422':
+          description: Parameter is missing.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Missing parameter.
+  /api/display_post:
+    get:
+      tags:
+        - "Api"
+      summary: Return one concrete post.
+      description: This endpoint returns one concrete post.
+      parameters:
+        - in: query
+          required: True
+          name: post_id
+          schema:
+            type: integer
+          description: ID of user                  
+      responses:
+        '200':
+          description: Returns information about post.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 2
+                  user_id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: qui est esse
+                  description:
+                    type: string
+                    example: quia et suscipit suscipit recusandae consequuntur expedita et cum 
+        '400':
+          description: Wrong format of post ID.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Bad format of post ID.
+        '404':
+          description: Post does not exist.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Post does not exist.
+        '422':
+          description: Parameter is missing.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Missing parameter.
+  /api/create_post:
+    post:
+      tags:
+        - "Api"
+      summary: Creates a new post.
+      description: This endpoint creates one post.
+      parameters:
+        - in: query
+          required: True
+          name: user_id
+          schema:
+            type: integer
+          description: ID of user
+        - in: query
+          required: True
+          name: title
+          schema:
+            type: string
+          description: Title of the post.  
+        - in: query
+          required: True
+          name: description
+          schema:
+            type: string
+          description: Body of the post.  
+      responses:
+        '200':
+          description: Returns information about post.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 2
+                  user_id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: New Post
+                  description:
+                    type: string
+                    example: Post's body.
+        '400':
+          description: Wrong format of post ID.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Bad format of user ID.
+        '404':
+          description: User does not exist.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User does not exist.
+        '422':
+          description: Parameter is missing.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Missing parameter.
+  /api/delete_post/<int:post_id>:
+    delete:
+      tags:
+        - "Api"
+      summary: Delete the post.
+      description: This endpoint deletes one post. (post_id is ID of post.)
+      responses:
+        '200':
+          description: Returns information about deleted post.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 2
+                  user_id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: Title of deleted post
+                  description:
+                    type: string
+                    example: Body of deleted post.
+        '404':
+          description: Post does not exist.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Post does not exist.
+  /api/update_post_body/<int:post_id>:
+    put:
+      tags:
+        - "Api"
+      summary: Updates a body of post.
+      description: This endpoint updates body of one post. (post_id is ID of post.)
+      parameters:
+        - in: query
+          required: True
+          name: body
+          schema:
+            type: string
+          description: New body of post
+      responses:
+        '200':
+          description: Returns information about updated post.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 2
+                  user_id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: Title of  post
+                  description:
+                    type: string
+                    example: Updated body of deleted post.
+        '422':
+          description: Parameter is missing.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Missing parameter.
+  /api/update_post_title/<int:post_id>:
+    put:
+      tags:
+        - "Api"
+      summary: Updates a title of post.
+      description: This endpoint updates title of one post.
+      parameters:
+        - in: query
+          required: True
+          name: title
+          schema:
+            type: string
+          description: New title of post
+      responses:
+        '200':
+          description: Returns information about updated post.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 2
+                  user_id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: Updated title of post
+                  description:
+                    type: string
+                    example: Body of post.
+        '422':
+          description: Parameter is missing.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Missing parameter.
+  /app:
+    get:
+      tags:
+        - "App"
+      summary: Renders main page.
+      description: This endpoint renders main page (app/base.html).
+      responses:
+        '200':
+          description: OK.
+  /app/create_post:
+    get:
+      tags:
+        - "App"
+      summary: Renders create post page.
+      description: This endpoint renders create post page (app/create.html).
+      responses:
+        '200':
+          description: Renders form that user fills for creating a new post.
+    post:
+      tags:
+        - "App"
+      summary: Post creating.
+      description: This endpoint is for a post creating.
+      parameters:
+        - in: query
+          required: True
+          name: user_id
+          schema:
+            type: integer
+          description: ID of user.
+        - in: query
+          required: True
+          name: title
+          schema:
+            type: string
+          description: Title of the post.
+        - in: query
+          required: True
+          name: description
+          schema:
+            type: string
+          description: Body of the post.
+      responses:
+        '200':
+          description: Redirect to app/info_page.html and post was created.
+        '400':
+          description: Bad format of user ID and redirect to app/error_page.html.
+        '404':
+          description: User does not exist and redirect to app/error_page.html.
+        '422':
+          description: Missing parameter and redirect to app/error_page.html.
+  /app/get_post:
+    get:
+      tags:
+        - "App"
+      summary: Renders information about post.
+      description: This endpoint renders information about post (app/display.html).
+      parameters:
+        - in: query
+          required: True
+          name: post_id
+          schema:
+            type: integer
+          description: ID of post.
+      responses:
+        '200':
+          description: Redirect to app/display.html, post exists and information is displayed.
+        '400':
+          description: Bad format of post ID and redirect to app/error_page.html.
+        '404':
+          description: Post does not exist and redirect to app/error_page.html.
+        '422':
+          description: Missing parameter and redirect to app/error_page.html.
+  /app/get_user_post:
+    get:
+      tags:
+        - "App"
+      summary: Renders information about all user's posts.
+      description: This endpoint renders information about all user's posts (app/display.html).
+      parameters:
+        - in: query
+          required: True
+          name: user_id
+          schema:
+            type: integer
+          description: ID of user.
+      responses:
+        '200':
+          description: Redirect to app/display.html and all user's posts are displayed.
+        '400':
+          description: Bad format of user ID and redirect to app/error_page.html.
+        '404':
+          description: User does not have any post and redirect to app/error_page.html.
+        '422':
+          description: Missing parameter and redirect to app/error_page.html.
+  /app/delete_page:
+    get:
+      tags:
+        - "App"
+      summary: Renders delete post page.
+      description: This endpoint renders delete post page (app/delete.html).
+      responses:
+        '200':
+          description: Ok.
+  /app/delete_post:
+    post:
+      tags:
+        - "App"
+      summary: Delete post if exists.
+      description: This endpoint deletes specific post.
+      parameters:
+        - in: query
+          required: True
+          name: user_id
+          schema:
+            type: integer
+          description: ID of user.
+      responses:
+        '200':
+          description: Post was deleted and redirect to app/info_page.html.
+        '404':
+          description: Post does not exists and redirect to app/error_page.html.
+
+  /app/update_page/<int:flag>:
+    get:
+      tags:
+        - "App"
+      summary: Renders update post page.
+      description: This endpoint renders form to update post page (app/update.html). Flag is auxiliary variable for page. If flag is equal to 0 than renders page with form for post id. If flag is equal to 1 than renders page with fields for title and body update.
+      parameters:
+        - in: query
+          required: True
+          name: post_id
+          schema:
+            type: integer
+          description: ID of post.
+      responses:
+        '200':
+          description: Ok.
+       
+
+  /app/update_post_body/<int:post_id>:
+    post:
+      tags:
+        - "App"
+      summary: Update post body. ()post_id is ID of post.)
+      description: This endpoint updates post body and renders updated post (app/info_page.html).
+      parameters:
+        - in: query
+          required: True
+          name: body
+          schema:
+            type: string
+          description: New body of the post.
+      responses:
+        '200':
+          description: Updates post body and redirect to app/info_page.html.
+        '404':
+          description: Post does not exist and redirect to app/error_page.html.
+        '422':
+          description: Missing parameter and redirect to app/error_page.html.
+  /app/update_post_title/<int:post_id>:
+    post:
+      tags:
+        - "App"
+      summary: Update post title. (post_id is ID of post.)
+      description: This endpoint updates post title and renders updated post (app/info_page.html).
+      parameters:
+        - in: query
+          required: True
+          name: title
+          schema:
+            type: string
+          description: New tiele of the post.
+      responses:
+        '200':
+          description: Updates post title and redirect to app/info_page.html.
+        '404':
+          description: Post does not exist and redirect to app/error_page.html.
+        '422':
+          description: Missing parameter and redirect to app/error_page.html.
