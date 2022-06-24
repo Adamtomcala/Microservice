@@ -1,0 +1,13 @@
+{%extends 'app/base.html' %}
+{% block title%}Delete a Post{% endblock %}
+
+{%block content%}
+
+    <label for="post_form" class="h2">Enter the post ID to delete it:</label>
+    <form action="{% url 'app:delete' %}" method="post" class="m-2" id="post_form">
+        <table>
+            {{ post_id_form.as_table }}
+        </table>
+        <button type="submit" class="btn btn-success mt-2" >Delete Post</button>
+    </form>
+{%endblock%}

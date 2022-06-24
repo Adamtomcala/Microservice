@@ -1,0 +1,10 @@
+{%extends 'app/base.html' %}
+{% block title%}Update a Post{% endblock %}
+
+{%block content%}
+    <h1>{{ message }}</h1>
+    <h2>{{ data.title }}</h2>
+    <h3>{{ data.id }}</h3>
+    <h3>{{ data.post_id }}</h3>
+    <p>{{ data.description }}</p>
+{% endblock %}

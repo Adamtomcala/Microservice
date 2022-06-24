@@ -1,0 +1,10 @@
+{%extends 'app/base.html' %}
+{% block title%}Display a Post{% endblock %}
+
+{%block content%}
+{% for post in posts %}
+    <h2>Title: {{post.title}}</h2>
+    <h3>Author: {{post.user_id}}</h3>
+    <p>{{post.description}}</p>
+{% endfor %}
+{%endblock%}

@@ -1,0 +1,46 @@
+{%extends 'app/base.html' %}
+{% block title%}Update a Post{% endblock %}
+
+{% block content %}
+    {% if flag == 0 %}
+
+        <label for="post_form" class="h2">Enter the post ID to update it: </label>
+        <form action="{% url 'app:update_page' flag=1%}" method="get" class="m-2" id="post_form">
+            <table>
+                {{ post_form.as_table}}
+            </table>
+            <button type="submit" class="btn btn-success mt-2" >Find Post</button>
+        </form>
+    {% elif flag == 1 %}
+        <div class="row">
+            <div class="col-md-3">
+                <label for="title_form" class="h2">Update your title:</label>
+                <form action="{% url 'app:update_post_title' post_id=post_id%}" method="post" class="m-2" id="title_form">
+                    <table>
+                        {{ title_form.as_table}}
+                    </table>
+                    <button type="submit" class="btn btn-success mt-2" >Update Title</button>
+                </form>
+            </div>
+             <div class="col-md-3">
+                 <h2>Actual title: </h2>
+                <p>{{ title }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label for="body_form" class="h2">Update your body:</label>
+                <form action="{% url 'app:update_post_body' post_id=post_id%}" method="post" class="m-2" id="body_form">
+
+                        {{ body_form.as_p }}
+
+                    <button type="submit" class="btn btn-success mt-2" >Update Body</button>
+                </form>
+            </div>
+            <div class="col-md-3">
+                 <h2>Actual body: </h2>
+                <p>{{ body }}</p>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
